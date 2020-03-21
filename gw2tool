@@ -1,0 +1,82 @@
+#!/usr/bin/python3.6
+import sys, os, json, argparse, urllib, requests
+from urllib.error import HTTPError, URLError
+from socket import timeout
+
+URL = "https://api.guildwars2.com/v2/"
+API_KEY = "?access_token="
+
+def load_api_key():
+	with open("api_key", 'r') as key_file:
+		global API_KEY
+		API_KEY = API_KEY + key_file.readline().rstrip()
+
+def url2json(target_url):
+	try:
+		response = requests.get(target_url, timeout=10).text
+	except HTTPError as error:
+		logging.error('Data of %s not retrieved because %s\nURL: %s', name, error, url)
+	except URLError as error:
+		if isinstance(error.reason, timeout):
+			logging.error('socket timed out - URL %s', url)
+		else:
+			logging.error('some other error happened')
+	else:
+		return json.loads(response)
+
+def inventory(args):
+	if len(args) < 1:
+		exit("Usage: gw2tool inv <character>")
+
+	char_list = url2json(URL + "characters" + API_KEY)
+	character = ""
+	for char in char_list:
+		if args[0].lower() in str(char).lower():
+			character = str(char)
+			print("character found: {}".format(character))
+	if not character:
+		exit("character not found")
+	inventory = url2json(URL + "characters/" + urllib.parse.quote(character) + "/inventory" + API_KEY)
+	#print(json.dumps(inventory))
+	
+	item_ids = []
+	item_amounts = []
+
+	for bag in inventory['bags']:
+		for item in bag['inventory']:
+			if item is not None:
+				item_ids.append(str(item['id']))
+				item_amounts.append(str(item['count']))
+	inventory_items = url2json(URL + "items?ids=" + ",".join(item_ids))
+	
+	index = 0
+	for item in inventory_items:
+		print("{}x {}".format(item_amounts[index], item['name']))
+		index += 1
+
+def bank(args):
+	print("bank")
+
+def account(args):
+	print("account")
+
+
+def main():
+	
+	commands = {
+		'inv': inventory,
+		'bank': bank,
+		'account': account
+		}
+	
+	if len(sys.argv) < 2:
+		exit("Usage: gw2tool <command> <parameter(s)>")
+
+	if not sys.argv[1] in commands.keys():
+		exit("Command not found")
+
+	load_api_key()
+	commands[sys.argv[1]](sys.argv[2:])
+
+if __name__ == "__main__":
+		main()
