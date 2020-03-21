@@ -28,6 +28,14 @@ def url2json(target_url):
 def get_characters():
 	return url2json(URL + "characters" + API_KEY)
 
+
+def get_itemlist(items):
+	return url2json(URL + "items?ids=" + ",".join(items))
+
+def print_item(item):
+	# Todo: consumables do not have rarities
+	print("{} \nLink: {} Rarity: {}\n".format(item['name'], item['chat_link'], item['rarity']))
+
 def find_character(substring):
 	char_list = get_characters()
 	character = ""
@@ -47,7 +55,7 @@ def find_character(substring):
 
 def inventory(args):
 	if len(args) < 1:
-		exit("Usage: gw2tool inv <character>")
+		exit("Usage: gw2tool inventory <character>")
 
 	character = find_character(args[0])
 
@@ -62,12 +70,34 @@ def inventory(args):
 			if item is not None:
 				item_ids.append(str(item['id']))
 				item_amounts.append(str(item['count']))
-	inventory_items = url2json(URL + "items?ids=" + ",".join(item_ids))
+	inventory_items = get_itemlist(item_ids) 
 	
 	index = 0
 	for item in inventory_items:
 		print("{}x {}".format(item_amounts[index], item['name']))
 		index += 1
+
+def equipment(args):
+	print("equipment")
+	if len(args) < 1:
+		exit("Usage: gw2tool equipment <character>")
+
+	character = find_character(args[0])
+	char_equipment = url2json(URL + "characters/" + urllib.parse.quote(character) + "/equipment" + API_KEY)
+	item_ids = []
+	item_slots = []
+
+	for item in char_equipment['equipment']:
+		item_ids.append(str(item['id']))
+		item_slots.append(item['slot'])
+	equipment_items = get_itemlist(item_ids)
+
+	index = 0
+	for item in equipment_items:
+		print("{}: ".format(item_slots[index]), end='')
+		print_item(item)
+		index += 1
+
 
 def bank(args):
 	print("bank")
@@ -86,7 +116,8 @@ def characters(args):
 def main():
 	
 	commands = {
-		'inv': inventory,
+		'inventory': inventory,
+		'equipment': equipment,
 		'bank': bank,
 		'account': account,
 		'characters': characters,
