@@ -5,6 +5,7 @@ from socket import timeout
 
 URL = "https://api.guildwars2.com/v2/"
 API_KEY = "?access_token="
+TAB_SIZE = 30
 
 def load_api_key():
 	with open("api_key", 'r') as key_file:
@@ -98,9 +99,41 @@ def equipment(args):
 		print_item(item)
 		index += 1
 
+def print_tab(bank_items, tab_index):
+	item_ids = []
+	item_amounts = []
+	# print intervals: 0-29, 30-59, 60-89, etc
+	for i in range(tab_index*TAB_SIZE, (tab_index*TAB_SIZE)+TAB_SIZE):
+		if bank_items[i] is not None:
+			item_ids.append(str(bank_items[i]['id']))
+			item_amounts.append(bank_items[i]['count'])
+	tab_items = get_itemlist(item_ids)
+	index = 0
+	for item in tab_items:
+		print("{}x {}".format(item_amounts[index], item['name'])) 
+		index += 1
+
 
 def bank(args):
-	print("bank")
+	#print("bank")
+	# Usage gw2tool bank (<bank_tab>)
+	tab_list = []
+	if len(args) > 0:
+		tab_list = [int(s) for s in args if s.isdigit()]
+		if not tab_list:
+			print("Usage: gw2tool bank (<bank_tab>)")
+	
+	bank_items = url2json(URL + "account/bank" + API_KEY)
+	tab_num = int(len(bank_items) / TAB_SIZE)
+
+	if not tab_list:
+		for i in range(0, tab_num):
+			print_tab(bank_items, i)
+			print("")
+	else:
+		for index in tab_list:
+			print_tab(bank_items, index)
+			print("")
 
 def account(args):
 	print("account")
