@@ -24,20 +24,35 @@ def url2json(target_url):
 	else:
 		return json.loads(response)
 
+
+def get_characters():
+	return url2json(URL + "characters" + API_KEY)
+
+def find_character(substring):
+	char_list = get_characters()
+	character = ""
+	chars_found = 0
+	for char in char_list:
+		if substring.lower() in str(char).lower():
+			character = str(char)
+			chars_found += 1
+	if chars_found == 0:
+		exit("character not found")
+	if chars_found > 1:
+		exit("found {} characters".format(chars_found))
+
+	print("found character: {}".format(character))
+	return character
+	
+
 def inventory(args):
 	if len(args) < 1:
 		exit("Usage: gw2tool inv <character>")
 
-	char_list = url2json(URL + "characters" + API_KEY)
-	character = ""
-	for char in char_list:
-		if args[0].lower() in str(char).lower():
-			character = str(char)
-			print("character found: {}".format(character))
-	if not character:
-		exit("character not found")
+	character = find_character(args[0])
+
+	# urllib.parse.quote to handle spaces in character names (firstname lastname) and weird letters?
 	inventory = url2json(URL + "characters/" + urllib.parse.quote(character) + "/inventory" + API_KEY)
-	#print(json.dumps(inventory))
 	
 	item_ids = []
 	item_amounts = []
@@ -60,13 +75,21 @@ def bank(args):
 def account(args):
 	print("account")
 
+def characters(args):
+	if len(args) < 1:
+		exit("Usage: gw2tool characters <parameter(s)>")
+	
+	if str(args[0]) == "list":
+		print(*get_characters(), sep='\n')
+
 
 def main():
 	
 	commands = {
 		'inv': inventory,
 		'bank': bank,
-		'account': account
+		'account': account,
+		'characters': characters,
 		}
 	
 	if len(sys.argv) < 2:
