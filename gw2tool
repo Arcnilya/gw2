@@ -152,9 +152,15 @@ def list_things(args):
 
 def daily(args):
 	if len(args) < 1:
-		exit("Usage: gw2tool daily <parameter(s)>")
+		exit("Usage: gw2tool daily <parameter(s)> (tomorrow)")
 	
-	daily_achievements = url2json(URL + "achievements/daily")
+	if len(args) == 2:
+		if str(args[1]) == "tomorrow":
+			daily_achievements = url2json(URL + "achievements/daily/tomorrow")
+		else:
+			exit("Usage: gw2tool daily <parameter(s)> (tomorrow)")
+	else:
+		daily_achievements = url2json(URL + "achievements/daily")
 	
 	if str(args[0]) == "fractals":
 		daily_fractals = daily_achievements['fractals']
