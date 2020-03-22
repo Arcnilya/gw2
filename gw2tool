@@ -6,7 +6,9 @@ from socket import timeout
 URL = "https://api.guildwars2.com/v2/"
 API_KEY = "?access_token="
 TAB_SIZE = 30
+FRACTAL_TABLE = None
 
+# Methods for reading API key
 def load_api_key():
 	try:
 		with open("api_key", 'r') as key_file:
@@ -15,6 +17,17 @@ def load_api_key():
 	except OSError:
 		exit("could not read api_key")
 
+# Method for reading fractal information (no official API)
+# fractal_table.json may be subject to change with new fractals!
+def load_fractals():
+	try:
+		with open("fractal_table.json", 'r') as table:
+			global FRACTAL_TABLE
+			FRACTAL_TABLE = json.load(table)
+	except OSError:
+		exit("could not read fractal_table.json")
+
+# Method for fetching json via url (gw2API)
 def url2json(target_url):
 	try:
 		response = requests.get(target_url, timeout=10).text
@@ -28,6 +41,7 @@ def url2json(target_url):
 	else:
 		return json.loads(response)
 
+# Method for extracting values from json items
 def extract_values(items, value):
 	values = []
 	for item in items:
@@ -35,17 +49,19 @@ def extract_values(items, value):
 			values.append(str(item[value]))
 	return values
 
+# Methods for abstraction
 def get_characters():
 	return url2json(URL + "characters" + API_KEY)
-
 
 def get_list(list_type, items):
 	return url2json(URL + list_type + "?ids=" + ",".join(items))
 
+# Method for a nice printout of items
 def print_item(item):
 	# Todo: consumables do not have rarities
 	print("{} \nLink: {} Rarity: {}\n".format(item['name'], item['chat_link'], item['rarity']))
 
+# Method for finding substring in character list
 def find_character(substring):
 	char_list = get_characters()
 	character = ""
@@ -62,7 +78,7 @@ def find_character(substring):
 	print("found character: {}".format(character))
 	return character
 	
-
+# Method for displaying inventory of character
 def inventory(args):
 	if len(args) < 1:
 		exit("Usage: gw2tool inventory <character>")
@@ -87,6 +103,7 @@ def inventory(args):
 		print("{}x {}".format(item_amounts[index], item['name']))
 		index += 1
 
+# Method for displaying equipment on character
 def equipment(args):
 	print("equipment")
 	if len(args) < 1:
@@ -103,6 +120,7 @@ def equipment(args):
 		print_item(item)
 		index += 1
 
+# Method for printing a specific bank tab
 def print_tab(bank_items, tab_index):
 	item_ids = []
 	item_amounts = []
@@ -117,7 +135,7 @@ def print_tab(bank_items, tab_index):
 		print("{}x {}".format(item_amounts[index], item['name'])) 
 		index += 1
 
-
+# Method for printing items in bank, all or subset of all banktabs
 def bank(args):
 	tab_list = []
 	if len(args) > 0:
@@ -137,11 +155,10 @@ def bank(args):
 			print_tab(bank_items, index)
 			print("")
 
-
 def account(args):
 	print("account TODO")
 
-
+# Method for listing stuff, characters implemented
 def list_things(args):
 	if len(args) < 1:
 		exit("Usage: gw2tool list <parameter(s)>")
@@ -149,8 +166,17 @@ def list_things(args):
 	if str(args[0]) == "characters":
 		print(*get_characters(), sep='\n')
 
+# Method for fetching the name of a fractal via level
+def get_fractal_name(level):
+	key = 'T' + str(1 + int(level/26))
+	for fractal in FRACTAL_TABLE[key]:
+		if fractal['level'] == level:
+			return "{} {} (level {})".format(key, fractal['name'], level)
+	return str(level)
 
+# Method for showing daily achievements, crafting, etc.
 def daily(args):
+
 	if len(args) < 1:
 		exit("Usage: gw2tool daily <parameter(s)> (tomorrow)")
 	
@@ -166,13 +192,16 @@ def daily(args):
 		daily_fractals = daily_achievements['fractals']
 		achievement_items = get_list("achievements", extract_values(daily_fractals, 'id'))
 		
+		load_fractals()
+		get_fractal_name(66)
+
 		names = []
 		for achievement in achievement_items:
 			name = achievement['name']
 			if "Tier 4" in name:
 				names.append("Daily" + name.split('4')[-1])
 			if "Rec" in achievement['name']:
-				names.append("Rec " + name.split()[-1])
+				names.append("Rec " + get_fractal_name(int(name.split()[-1])))
 		for name in names:
 			print(name)
 

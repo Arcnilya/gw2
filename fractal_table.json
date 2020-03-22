@@ -1,0 +1,509 @@
+{
+  "T1": [
+  {
+    "level": 1,
+    "name": "Volcanic",
+    "agony": 0
+  },
+  {
+    "level": 2,
+    "name": "Uncategorized",
+    "agony": 0
+  },
+  {
+    "level": 3,
+    "name": "Snowblind",
+    "agony": 0
+  },
+  {
+    "level": 4,
+    "name": "Urban Battleground",
+    "agony": 0
+  },
+  {
+    "level": 5,
+    "name": "Swampland",
+    "agony": 0
+  },
+  {
+    "level": 6,
+    "name": "Cliffside",
+    "agony": 0
+  },
+  {
+    "level": 7,
+    "name": "Aquatic Ruins",
+    "agony": 0
+  },
+  {
+    "level": 8,
+    "name": "Underground Facility",
+    "agony": 0
+  },
+  {
+    "level": 9,
+    "name": "Molten Furnace",
+    "agony": 0
+  },
+  {
+    "level": 10,
+    "name": "Molten Boss",
+    "agony": 0
+  },
+  {
+    "level": 11,
+    "name": "Deepstone",
+    "agony": 0
+  },
+  {
+    "level": 12,
+    "name": "Siren's Reef",
+    "agony": 0
+  },
+  {
+    "level": 13,
+    "name": "Chaos Isles",
+    "agony": 0
+  },
+  {
+    "level": 14,
+    "name": "Aetherblade",
+    "agony": 0
+  },
+  {
+    "level": 15,
+    "name": "Thaumanova Reactor",
+    "agony": 0
+  },
+  {
+    "level": 16,
+    "name": "Twilight Oasis",
+    "agony": 0
+  },
+  {
+    "level": 17,
+    "name": "Underground Facility",
+    "agony": 0
+  },
+  {
+    "level": 18,
+    "name": "Captain Mai Trin Boss",
+    "agony": 0
+  },
+  {
+    "level": 19,
+    "name": "Volcanic",
+    "agony": 0
+  },
+  {
+    "level": 20,
+    "name": "Solid Ocean",
+    "agony": 8
+  },
+  {
+    "level": 21,
+    "name": "Swampland",
+    "agony": 10
+  },
+  {
+    "level": 22,
+    "name": "Cliffside",
+    "agony": 11
+  },
+  {
+    "level": 23,
+    "name": "Molten Furnace",
+    "agony": 13
+  },
+  {
+    "level": 24,
+    "name": "Nightmare",
+    "agony": 15
+  },
+  {
+    "level": 25,
+    "name": "Shattered Observatory",
+    "agony": 17
+  }
+],
+  "T2": [
+  {
+    "level": 26,
+    "name": "Aquatic Ruins",
+    "agony": 18
+  },
+  {
+    "level": 27,
+    "name": "Snowblind",
+    "agony": 20
+  },
+  {
+    "level": 28,
+    "name": "Volcanic",
+    "agony": 22
+  },
+  {
+    "level": 29,
+    "name": "Underground Facility",
+    "agony": 24
+  },
+  {
+    "level": 30,
+    "name": "Chaos Isles",
+    "agony": 26
+  },
+  {
+    "level": 31,
+    "name": "Urban Battleground",
+    "agony": 27
+  },
+  {
+    "level": 32,
+    "name": "Swampland",
+    "agony": 29
+  },
+  {
+    "level": 32,
+    "name": "Deepstone",
+    "agony": 31
+  },
+  {
+    "level": 34,
+    "name": "Thaumanova Reactor",
+    "agony": 33
+  },
+  {
+    "level": 35,
+    "name": "Solid Ocean",
+    "agony": 34
+  },
+  {
+    "level": 36,
+    "name": "Uncategorized",
+    "agony": 36
+  },
+  {
+    "level": 37,
+    "name": "Siren's Reef",
+    "agony": 38
+  },
+  {
+    "level": 38,
+    "name": "Chaos Isles",
+    "agony": 40
+  },
+  {
+    "level": 39,
+    "name": "Molten Furnace",
+    "agony": 42
+  },
+  {
+    "level": 40,
+    "name": "Molten Boss",
+    "agony": 43
+  },
+  {
+    "level": 41,
+    "name": "Twilight Oasis",
+    "agony": 45
+  },
+  {
+    "level": 42,
+    "name": "Captain Mai Trin Boss",
+    "agony": 47
+  },
+  {
+    "level": 43,
+    "name": "Underground Facility",
+    "agony": 49
+  },
+  {
+    "level": 44,
+    "name": "Uncategorized",
+    "agony": 50
+  },
+  {
+    "level": 45,
+    "name": "Solid Ocean",
+    "agony": 52
+  },
+  {
+    "level": 46,
+    "name": "Aetherblade",
+    "agony": 54
+  },
+  {
+    "level": 47,
+    "name": "Cliffside",
+    "agony": 56
+  },
+  {
+    "level": 48,
+    "name": "Thaumanova Reactor",
+    "agony": 58
+  },
+  {
+    "level": 49,
+    "name": "Nightmare",
+    "agony": 59
+  },
+  {
+    "level": 50,
+    "name": "Shattered Observatory",
+    "agony": 61
+  }
+],
+  "T3": [
+  {
+    "level": 51,
+    "name": "Snowblind",
+    "agony": 63
+  },
+  {
+    "level": 52,
+    "name": "Volcanic",
+    "agony": 65
+  },
+  {
+    "level": 53,
+    "name": "Underground Facility",
+    "agony": 67
+  },
+  {
+    "level": 54,
+    "name": "Siren's Reef",
+    "agony": 68
+  },
+  {
+    "level": 55,
+    "name": "Thaumanova Reactor",
+    "agony": 70
+  },
+  {
+    "level": 56,
+    "name": "Swampland",
+    "agony": 72
+  },
+  {
+    "level": 57,
+    "name": "Urban Battleground",
+    "agony": 74
+  },
+  {
+    "level": 58,
+    "name": "Molten Furnace",
+    "agony": 75
+  },
+  {
+    "level": 59,
+    "name": "Twilight Oasis",
+    "agony": 77
+  },
+  {
+    "level": 60,
+    "name": "Solid Ocean",
+    "agony": 79
+  },
+  {
+    "level": 61,
+    "name": "Aquatic Ruins",
+    "agony": 81
+  },
+  {
+    "level": 62,
+    "name": "Uncategorized",
+    "agony": 83
+  },
+  {
+    "level": 63,
+    "name": "Chaos Isles",
+    "agony": 84
+  },
+  {
+    "level": 64,
+    "name": "Thaumanova Reactor",
+    "agony": 86
+  },
+  {
+    "level": 65,
+    "name": "Aetherblade",
+    "agony": 88
+  },
+  {
+    "level": 66,
+    "name": "Urban Battleground",
+    "agony": 90
+  },
+  {
+    "level": 67,
+    "name": "Deepstone",
+    "agony": 91
+  },
+  {
+    "level": 68,
+    "name": "Snowblind",
+    "agony": 93
+  },
+  {
+    "level": 69,
+    "name": "Cliffside",
+    "agony": 95
+  },
+  {
+    "level": 70,
+    "name": "Molten Boss",
+    "agony": 97
+  },
+  {
+    "level": 71,
+    "name": "Aetherblade",
+    "agony": 99
+  },
+  {
+    "level": 72,
+    "name": "Volcanic",
+    "agony": 100
+  },
+  {
+    "level": 73,
+    "name": "Captain Mai Trin Boss",
+    "agony": 102
+  },
+  {
+    "level": 74,
+    "name": "Nightmare",
+    "agony": 104
+  },
+  {
+    "level": 75,
+    "name": "Shattered Observatory",
+    "agony": 106
+  }
+],
+  "T4": [
+  {
+    "level": 76,
+    "name": "Aquatic Ruins",
+    "agony": 107
+  },
+  {
+    "level": 77,
+    "name": "Swampland",
+    "agony": 109
+  },
+  {
+    "level": 78,
+    "name": "Siren's Reef",
+    "agony": 111
+  },
+  {
+    "level": 79,
+    "name": "Uncategorized",
+    "agony": 113
+  },
+  {
+    "level": 80,
+    "name": "Solid Ocean",
+    "agony": 115
+  },
+  {
+    "level": 81,
+    "name": "Underground Facility",
+    "agony": 116
+  },
+  {
+    "level": 82,
+    "name": "Cliffside",
+    "agony": 118
+  },
+  {
+    "level": 83,
+    "name": "Molten Furnace",
+    "agony": 120
+  },
+  {
+    "level": 84,
+    "name": "Deepstone",
+    "agony": 122
+  },
+  {
+    "level": 85,
+    "name": "Urban Battlegrounds",
+    "agony": 123
+  },
+  {
+    "level": 86,
+    "name": "Snowblind",
+    "agony": 125
+  },
+  {
+    "level": 87,
+    "name": "Twilight Oasis",
+    "agony": 127
+  },
+  {
+    "level": 88,
+    "name": "Chaos Isles",
+    "agony": 129
+  },
+  {
+    "level": 89,
+    "name": "Swampland",
+    "agony": 131
+  },
+  {
+    "level": 90,
+    "name": "Molten Boss",
+    "agony": 132
+  },
+  {
+    "level": 91,
+    "name": "Uncategorized",
+    "agony": 134
+  },
+  {
+    "level": 92,
+    "name": "Volcanic",
+    "agony": 136
+  },
+  {
+    "level": 93,
+    "name": "Snowblind",
+    "agony": 138
+  },
+  {
+    "level": 94,
+    "name": "Cliffside",
+    "agony": 139
+  },
+  {
+    "level": 95,
+    "name": "Captain Mai Trin Boss",
+    "agony": 141
+  },
+  {
+    "level": 96,
+    "name": "Aetherblade",
+    "agony": 143
+  },
+  {
+    "level": 97,
+    "name": "Thaumanova Reactor",
+    "agony": 145
+  },
+  {
+    "level": 98,
+    "name": "Chaos Isles",
+    "agony": 147
+  },
+  {
+    "level": 99,
+    "name": "Nightmare",
+    "agony": 148
+  },
+  {
+    "level": 100,
+    "name": "Shattered Observatory",
+    "agony": 150
+  }]
+}
