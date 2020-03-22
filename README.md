@@ -7,7 +7,7 @@ Guild Wars 2 CLI tool
 
 Usage:
 
-./gw2tool characters list
+./gw2tool list characters
 
 ./gw2tool inventory \<character>
 
@@ -16,6 +16,8 @@ Usage:
 ./gw2tool bank 0
 
 ./gw2tool bank 1
+
+./gw2tool daily fractals
 
 
 To use "gw2tool" instead of "./gw2tool" 
