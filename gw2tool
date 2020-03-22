@@ -8,9 +8,12 @@ API_KEY = "?access_token="
 TAB_SIZE = 30
 
 def load_api_key():
-	with open("api_key", 'r') as key_file:
-		global API_KEY
-		API_KEY = API_KEY + key_file.readline().rstrip()
+	try:
+		with open("api_key", 'r') as key_file:
+			global API_KEY
+			API_KEY = API_KEY + key_file.readline().rstrip()
+	except OSError:
+		exit("could not read api_key")
 
 def url2json(target_url):
 	try:
@@ -138,13 +141,22 @@ def bank(args):
 def account(args):
 	print("account")
 
-def characters(args):
+def list_things(args):
 	if len(args) < 1:
-		exit("Usage: gw2tool characters <parameter(s)>")
+		exit("Usage: gw2tool list <parameter(s)>")
 	
-	if str(args[0]) == "list":
+	if str(args[0]) == "characters":
 		print(*get_characters(), sep='\n')
 
+def daily(args):
+	if len(args) < 1:
+		exit("Usage: gw2tool daily <parameter(s)>")
+	
+	if str(args[0]) == "fractals":
+		daily_achievements = url2json(URL + "achievements/daily")
+		daily_fractals = daily_achievements['fractals']
+		# Todo 
+		#print(daily_fractals)
 
 def main():
 	
@@ -153,7 +165,8 @@ def main():
 		'equipment': equipment,
 		'bank': bank,
 		'account': account,
-		'characters': characters,
+		'list': list_things,
+		'daily': daily,
 		}
 	
 	if len(sys.argv) < 2:
