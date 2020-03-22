@@ -28,13 +28,19 @@ def url2json(target_url):
 	else:
 		return json.loads(response)
 
+def extract_values(items, value):
+	values = []
+	for item in items:
+		if item is not None:
+			values.append(str(item[value]))
+	return values
 
 def get_characters():
 	return url2json(URL + "characters" + API_KEY)
 
 
-def get_itemlist(items):
-	return url2json(URL + "items?ids=" + ",".join(items))
+def get_list(list_type, items):
+	return url2json(URL + list_type + "?ids=" + ",".join(items))
 
 def print_item(item):
 	# Todo: consumables do not have rarities
@@ -74,7 +80,7 @@ def inventory(args):
 			if item is not None:
 				item_ids.append(str(item['id']))
 				item_amounts.append(str(item['count']))
-	inventory_items = get_itemlist(item_ids) 
+	inventory_items = get_list("items", item_ids) 
 	
 	index = 0
 	for item in inventory_items:
@@ -88,13 +94,8 @@ def equipment(args):
 
 	character = find_character(args[0])
 	char_equipment = url2json(URL + "characters/" + urllib.parse.quote(character) + "/equipment" + API_KEY)
-	item_ids = []
-	item_slots = []
-
-	for item in char_equipment['equipment']:
-		item_ids.append(str(item['id']))
-		item_slots.append(item['slot'])
-	equipment_items = get_itemlist(item_ids)
+	item_slots = extract_values(char_equipment['equipment'], 'slot')
+	equipment_items = get_list("items", extract_values(char_equipment['equipment'], 'id'))
 
 	index = 0
 	for item in equipment_items:
@@ -110,7 +111,7 @@ def print_tab(bank_items, tab_index):
 		if bank_items[i] is not None:
 			item_ids.append(str(bank_items[i]['id']))
 			item_amounts.append(bank_items[i]['count'])
-	tab_items = get_itemlist(item_ids)
+	tab_items = get_list("items", item_ids)
 	index = 0
 	for item in tab_items:
 		print("{}x {}".format(item_amounts[index], item['name'])) 
@@ -118,8 +119,6 @@ def print_tab(bank_items, tab_index):
 
 
 def bank(args):
-	#print("bank")
-	# Usage gw2tool bank (<bank_tab>)
 	tab_list = []
 	if len(args) > 0:
 		tab_list = [int(s) for s in args if s.isdigit()]
@@ -138,8 +137,10 @@ def bank(args):
 			print_tab(bank_items, index)
 			print("")
 
+
 def account(args):
-	print("account")
+	print("account TODO")
+
 
 def list_things(args):
 	if len(args) < 1:
@@ -148,15 +149,26 @@ def list_things(args):
 	if str(args[0]) == "characters":
 		print(*get_characters(), sep='\n')
 
+
 def daily(args):
 	if len(args) < 1:
 		exit("Usage: gw2tool daily <parameter(s)>")
 	
+	daily_achievements = url2json(URL + "achievements/daily")
+	
 	if str(args[0]) == "fractals":
-		daily_achievements = url2json(URL + "achievements/daily")
 		daily_fractals = daily_achievements['fractals']
-		# Todo 
-		#print(daily_fractals)
+		achievement_items = get_list("achievements", extract_values(daily_fractals, 'id'))
+		
+		names = []
+		for achievement in achievement_items:
+			name = achievement['name']
+			if "Tier 4" in name:
+				names.append("Daily" + name.split('4')[-1])
+			if "Rec" in achievement['name']:
+				names.append("Rec " + name.split()[-1])
+		for name in names:
+			print(name)
 
 def main():
 	
