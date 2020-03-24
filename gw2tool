@@ -30,7 +30,7 @@ def load_fractals():
 # Method for fetching json via url (gw2API)
 def url2json(target_url):
 	try:
-		response = requests.get(target_url, timeout=10).text
+		response = requests.get(URL + target_url, timeout=10).text
 	except HTTPError as error:
 		logging.error('Data of %s not retrieved because %s\nURL: %s', name, error, url)
 	except URLError as error:
@@ -51,10 +51,11 @@ def extract_values(items, value):
 
 # Methods for abstraction
 def get_characters():
-	return url2json(URL + "characters" + API_KEY)
+	return url2json("characters" + API_KEY)
 
+# Todo: Does not hadle duplicate ids well!
 def get_list(list_type, items):
-	return url2json(URL + list_type + "?ids=" + ",".join(items))
+	return url2json(list_type + "?ids=" + ",".join(items))
 
 # Method for a nice printout of items
 def print_item(item):
@@ -86,7 +87,7 @@ def inventory(args):
 	character = find_character(args[0])
 
 	# urllib.parse.quote to handle spaces in character names (firstname lastname) and weird letters?
-	inventory = url2json(URL + "characters/" + urllib.parse.quote(character) + "/inventory" + API_KEY)
+	inventory = url2json("characters/" + urllib.parse.quote(character) + "/inventory" + API_KEY)
 	
 	item_ids = []
 	item_amounts = []
@@ -110,7 +111,7 @@ def equipment(args):
 		exit("Usage: gw2tool equipment <character>")
 
 	character = find_character(args[0])
-	char_equipment = url2json(URL + "characters/" + urllib.parse.quote(character) + "/equipment" + API_KEY)
+	char_equipment = url2json("characters/" + urllib.parse.quote(character) + "/equipment" + API_KEY)
 	item_slots = extract_values(char_equipment['equipment'], 'slot')
 	equipment_items = get_list("items", extract_values(char_equipment['equipment'], 'id'))
 
@@ -143,7 +144,7 @@ def bank(args):
 		if not tab_list:
 			print("Usage: gw2tool bank (<bank_tab>)")
 	
-	bank_items = url2json(URL + "account/bank" + API_KEY)
+	bank_items = url2json("account/bank" + API_KEY)
 	tab_num = int(len(bank_items) / TAB_SIZE)
 
 	if not tab_list:
@@ -179,14 +180,28 @@ def daily(args):
 
 	if len(args) < 1:
 		exit("Usage: gw2tool daily <parameter(s)> (tomorrow)")
-	
+
+	if str(args[0]) == "crafting":
+		all_daily_items = url2json("dailycrafting")
+		crafted_daily_items = url2json("account/dailycrafting" + API_KEY)
+		#print(all_daily_items)
+		#print(crafted_daily_items)
+		for item in all_daily_items:
+			name = item.replace("_", " ").title()
+			if item in crafted_daily_items:
+				print("{} (done)".format(name))
+			else:
+				print("{}".format(name))
+
+
+	# Tomorrow feature for achievements (not crafting, which is above) 
 	if len(args) == 2:
 		if str(args[1]) == "tomorrow":
-			daily_achievements = url2json(URL + "achievements/daily/tomorrow")
+			daily_achievements = url2json("achievements/daily/tomorrow")
 		else:
 			exit("Usage: gw2tool daily <parameter(s)> (tomorrow)")
 	else:
-		daily_achievements = url2json(URL + "achievements/daily")
+		daily_achievements = url2json("achievements/daily")
 	
 	if str(args[0]) == "fractals":
 		daily_fractals = daily_achievements['fractals']

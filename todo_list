@@ -1,7 +1,8 @@
 - Handle non-existing api_key file (done)
 - Function: List Daily Fractals (done)
   - Feature: List names for Recs instead of number (done)
-- Function: List Daily Crafting
+- Function: List Daily Crafting (done)
+- Bug Fixing: handle duplicate ids in get_list()
 - Function: Character Stats
 - Function: Account Stats
 - Function: Find Item (character inventory & bank & material storage?)
