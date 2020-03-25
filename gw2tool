@@ -49,13 +49,29 @@ def extract_values(items, value):
 			values.append(str(item[value]))
 	return values
 
-# Methods for abstraction
+# Method for abstraction
 def get_characters():
 	return url2json("characters" + API_KEY)
 
-# Todo: Does not hadle duplicate ids well!
+
+# Method for restoring duplicates after API request
+def restore_duplicates(original_list, new_list):
+	fixed = []
+	if len(original_list) == len(new_list): # No duplicates
+		return new_list
+	else:
+		for x in range(len(original_list)):
+			for y in range(x+1, len(original_list)):
+				if original_list[x] == original_list[y]:	# found duplicate
+					if not original_list[x] in fixed:				# if not fixed
+						new_list.insert(y, new_list[x])				# restore duplicate
+			fixed.append(original_list[x])							# add to fixed
+	return new_list
+
+# Method for fetching items via ids
 def get_list(list_type, items):
-	return url2json(list_type + "?ids=" + ",".join(items))
+	json_item = url2json(list_type + "?ids=" + ",".join(items))
+	return restore_duplicates(items, json_item)
 
 # Method for a nice printout of items
 def print_item(item):
