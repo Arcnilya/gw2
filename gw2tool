@@ -236,6 +236,36 @@ def daily(args):
 		for name in names:
 			print(name)
 
+
+def get_guild(guild_id):
+	return url2json("guild/" + guild_id)
+
+# Method to print stats about characters
+def stats(args):
+	if len(args) < 1:
+		exit("Usage: gw2tool stats <character>")
+
+	character_item = url2json("characters/" + urllib.parse.quote(find_character(args[0])) + API_KEY)
+	guild_tag = get_guild(character_item['guild'])['tag']
+	print("")
+	print("[{}] {} ({} {})".format(guild_tag, character_item['name'], character_item['gender'], character_item['race']))
+	print("Level {} {}".format(character_item['level'], character_item['profession']))
+	# Todo: Show specialization instead of profession
+	print("Created: {}".format(character_item['created'].split('T')[0]))
+	age = int(character_item['age']) # in seconds
+	total_minutes = int(age/60)
+	hours = int(total_minutes/60)
+	minutes = int(total_minutes-(hours*60))
+	print("Playtime: {} hours {} minutes".format(hours, minutes))
+	print("Deaths: {}".format(character_item['deaths']))
+	print("Crafting:")
+	if not character_item['crafting']:
+		print("  None")
+	else:
+		for discipline in character_item['crafting']:
+			print("  {}: {}".format(discipline['discipline'], discipline['rating']))
+			# Todo: Add discipline['active'] ? 	
+
 def main():
 	
 	commands = {
@@ -245,6 +275,7 @@ def main():
 		'account': account,
 		'list': list_things,
 		'daily': daily,
+		'stats': stats,
 		}
 	
 	if len(sys.argv) < 2:

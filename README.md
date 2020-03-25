@@ -19,6 +19,10 @@ Usage:
 
 ./gw2tool daily fractals
 
+./gw2tool daily fractals tomorrow
+
+./gw2tool stats \<character>
+
 
 To use "gw2tool" instead of "./gw2tool" 
 

@@ -3,7 +3,8 @@
   - Feature: List names for Recs instead of number (done)
 - Function: List Daily Crafting (done)
 - Bug Fixing: handle duplicate ids in get_list() (done)
-- Function: Character Stats
+- Function: Character Stats (done)
+  - Feature: Show Specialization, show active disciplines
 - Function: Account Stats
 - Function: Find Item (character inventory & bank & material storage?)
 - Function: help command listing available commands
