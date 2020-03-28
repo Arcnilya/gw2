@@ -4,7 +4,7 @@
 - Function: List Daily Crafting (done)
 - Bug Fixing: handle duplicate ids in get_list() (done)
 - Function: Character Stats (done)
-  - Feature: Show Specialization, show active disciplines
+  - Feature: Show Specialization (done), show active disciplines (done)
 - Function: Account Stats
 - Function: Find Item (character inventory & bank & material storage?)
 - Function: help command listing available commands
