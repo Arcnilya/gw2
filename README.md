@@ -1,29 +1,28 @@
-# gw2
-Guild Wars 2 CLI tool
+# Guild Wars 2 CLI tool
 
 1. clone the repository and change to the gw2 directory
-2. create a file called "api_key" with your API key from account.arena.net/applications
-3. make the script executable with: sudo chmod +x gw2tool
+2. create a file called "api_key" with your API key from [ArenaNet](account.arena.net/applications)
+3. make the script executable with: <code>sudo chmod +x gw2tool</code>
 
 Usage:
 
-./gw2tool list characters
+<code>./gw2tool list characters</code>
 
-./gw2tool inventory \<character>
+<code>./gw2tool inventory \<character></code>
 
-./gw2tool equipment \<character>
+<code>./gw2tool equipment \<character></code>
 
-./gw2tool bank 0
+<code>./gw2tool bank 0</code>
 
-./gw2tool bank 1
+<code>./gw2tool bank 1</code>
 
-./gw2tool daily fractals
+<code>./gw2tool daily fractals</code>
 
-./gw2tool daily fractals tomorrow
+<code>./gw2tool daily fractals tomorrow</code>
 
-./gw2tool stats \<character>
+<code>./gw2tool stats \<character></code>
 
 
 To use "gw2tool" instead of "./gw2tool" 
 
-export PATH=/my/directory/to/this/script:$PATH
+<code>export PATH=/my/directory/to/this/script:$PATH</code>
